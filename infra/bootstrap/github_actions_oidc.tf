@@ -91,7 +91,9 @@ data "aws_iam_policy_document" "github_actions_deploy" {
     actions = [
       "dynamodb:CreateTable",
       "dynamodb:DeleteTable",
+      "dynamodb:DescribeContinuousBackups",
       "dynamodb:DescribeTable",
+      "dynamodb:DescribeTimeToLive",
       "dynamodb:ListTagsOfResource",
       "dynamodb:TagResource",
       "dynamodb:UntagResource",
