@@ -38,6 +38,7 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
       variable = "token.actions.githubusercontent.com:sub"
       values = [
         "repo:${var.github_repository}:*",
+        "repo:AndrewBruce1178@328336580/serverless-api-terraform@1367237434:*",
       ]
     }
   }
