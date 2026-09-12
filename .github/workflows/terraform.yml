@@ -22,6 +22,7 @@ permissions:
 env:
   AWS_REGION: eu-central-1
   TF_BACKEND_CONFIG: backend/dev.hcl
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
   terraform:
@@ -34,6 +35,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Debug OIDC claims
+        run: |
+          TOKEN_JSON=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com")
+          TOKEN=$(echo "$TOKEN_JSON" | jq -r '.value')
+          echo "$TOKEN" | cut -d. -f2 | base64 -d 2>/dev/null | jq '{iss, aud, sub, repository, repository_owner, ref, event_name}'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
