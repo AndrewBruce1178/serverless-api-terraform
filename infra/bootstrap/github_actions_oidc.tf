@@ -135,6 +135,14 @@ data "aws_iam_policy_document" "github_actions_deploy" {
   }
 
   statement {
+    sid = "CloudWatchLogsRead"
+    actions = [
+      "logs:DescribeLogGroups",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
     sid = "ApiGateway"
     actions = [
       "apigateway:*",
