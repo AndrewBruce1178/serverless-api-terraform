@@ -69,6 +69,16 @@ terraform apply \
   -var="lock_table_name=serverless-task-api-terraform-locks"
 ```
 
+For this repository:
+
+```powershell
+terraform apply `
+  -var="state_bucket_name=andrewbruce1178-serverless-api-terraform-state" `
+  -var="lock_table_name=serverless-task-api-terraform-locks"
+```
+
+The bootstrap stack also creates a GitHub Actions OIDC role. Copy the `github_actions_role_arn` output and store it as the `AWS_ROLE_TO_ASSUME` GitHub Actions secret.
+
 Then copy the backend example:
 
 ```bash
@@ -113,3 +123,10 @@ TF_LOCK_TABLE
 ```
 
 Use GitHub OIDC with an AWS IAM role that can manage the resources in this project and access the Terraform state bucket and lock table.
+
+For this repository:
+
+```text
+TF_STATE_BUCKET=andrewbruce1178-serverless-api-terraform-state
+TF_LOCK_TABLE=serverless-task-api-terraform-locks
+```
