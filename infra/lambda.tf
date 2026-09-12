@@ -3,9 +3,14 @@ data "archive_file" "lambda_zip" {
   source_dir  = "${path.module}/../app"
   output_path = "${path.module}/lambda_package.zip"
   excludes = [
+    ".venv",
+    ".venv/**",
     "tests",
+    "tests/**",
     "__pycache__",
+    "__pycache__/**",
     ".pytest_cache",
+    ".pytest_cache/**",
     "requirements-dev.txt",
   ]
 }
